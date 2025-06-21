@@ -6,12 +6,16 @@
 
 #
 DATA_FILE='data.json'
-NAME=$(jq -r '.name' "$DATA_FILE")
-WEIGHT=$(jq '.weight' "$DATA_FILE")
-HEIGHT=$(echo "scale=1; $(jq '.height' "$DATA_FILE") / 10" | bc) # changing from decimeters to meters;
-																# bc is needed for  any decimal calculations;
-																#  scale keeps division results to 2 dp
-TYPE=$(jq -r '.types[0].type.name' "$DATA_FILE")
+name=$(jq -r '.name' "$DATA_FILE")
+weight=$(jq '.weight' "$DATA_FILE")
+height=$(jq '.height' "$DATA_FILE") 
+type=$(jq -r '.types[0].type.name' "$DATA_FILE")
 #getting the urls for each pokemon
 
-echo "$NAME is an $TYPE type pokemon, and is $HEIGHT m and $WEIGHT kg"
+formatted_height=$(awk -v w=$weight 'BEGIN{printf "%.f", w / 10}') # changing from decimeters to meters;
+																# bc is needed for  any decimal calculations;
+																#  scale keeps division results to 2 dp
+
+formatted_weight=$(awk -v h=$weight 'BEGIN{printf "%.f",  h / 10}') # changing to kg
+
+echo "$name is of type $type, weighs ${formatted_weight}kg  and is ${formatted_height}m tall " | sed -E "s/\b($name)\b/\u\1/"
