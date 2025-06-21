@@ -3,7 +3,7 @@
 # but here ill be feeding the response into a csv
 # follow it up by appending the results of an awk process for summary data
 
-CSV_FILE="pokemon_report"
+CSV_FILE="pokemon_report.csv"
 echo "Name,Height (m),Weight (kg)" > $CSV_FILE
 
 POKEMONS=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
