@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+# use the same looping mechanism from task 3 to run the extraction i did in task 2
+# but here ill be feeding the response into a csv
+# follow it up by appending the results of an awk process for summary data
+
+CSV_FILE="pokemon_report"
+echo "Name,Height (m),Weight (kg)" > $CSV_FILE
+
+POKEMONS=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
+for poke in "${POKEMONS[@]}";
+do
+    DATA_FILE="${poke}.json"
+    name=$(jq -r '.name' "$DATA_FILE")
+    capitalized_name=$(echo "$name" | sed -E "s/\b($name)\b/\u\1/")
+    weight=$(jq '.weight' "$DATA_FILE")
+    height=$(jq '.height' "$DATA_FILE") 
+
+    formatted_height=$(awk -v w=$height 'BEGIN{printf "%.1f", w / 10}')
+    formatted_weight=$(awk -v h=$weight 'BEGIN{printf "%.1f",  h / 10}')
+
+    echo "$capitalized_name,$formatted_height,$formatted_weight" >> $CSV_FILE
+    
+    
+done
+
+echo " " >> $CSV_FILE
+
+awk -F',' '
+    NR > 1 {
+        height_sum += $2;
+        weight_sum += $3;
+        count++;
+    }
+    END {
+        ave_height = height_sum / count;
+        ave_weight = weight_sum / count;
+        printf "Average Height: %.2f m\n", ave_height;
+        printf "Average Weight: %.2f kg\n", ave_weight;
+    }
+' $CSV_FILE >> $CSV_FILE

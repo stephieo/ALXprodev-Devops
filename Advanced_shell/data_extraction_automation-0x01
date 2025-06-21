@@ -1,4 +1,4 @@
-   #!/bin/bash
+   #!/usrbin/bash
 ##  Bash script to make  extract specific data on Pikachu pokemon
 # on error,  erro msg is saved to  file
 # on sucess, response is saved to file

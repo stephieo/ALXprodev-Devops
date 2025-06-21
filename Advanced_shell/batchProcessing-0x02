@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 #  create a list of pokemons
 #  for each one , append name to api url
 #  save response to "name.jason"
