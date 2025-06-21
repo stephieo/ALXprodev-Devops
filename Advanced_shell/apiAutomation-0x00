@@ -1,10 +1,10 @@
 #!/bin/bash
-##  Bash script to make  an API request
+##  Bash script to make  an API request for Pikachu pokemon
 # on error,  erro msg is saved to  file
 # on sucess, response is saved to file
 # json response is handled with jq
 
-curl -X GET 'https://pokeapi.co/api/v2/pokemon/' 2> errors.txt | jq . > pokeapi.txt
+curl -X GET 'https://pokeapi.co/api/v2/pokemon/Pikachu' 2> errors.txt | jq . > data.json
 
 if [ $? -ne 0 ]; then        # $? is the bash variable for the exit code of the last command
 	echo "curl failed with error: $(cat error.log)"   # $(...) is command substitution syntax;

@@ -1,0 +1,17 @@
+   #!/bin/bash
+##  Bash script to make  extract specific data on Pikachu pokemon
+# on error,  erro msg is saved to  file
+# on sucess, response is saved to file
+# json response is handled with jq
+
+#
+DATA_FILE='data.json'
+NAME=$(jq -r '.name' "$DATA_FILE")
+WEIGHT=$(jq '.weight' "$DATA_FILE")
+HEIGHT=$(echo "scale=1; $(jq '.height' "$DATA_FILE") / 10" | bc) # changing from decimeters to meters;
+																# bc is needed for  any decimal calculations;
+																#  scale keeps division results to 2 dp
+TYPE=$(jq -r '.types[0].type.name' "$DATA_FILE")
+#getting the urls for each pokemon
+
+echo "$NAME is an $TYPE type pokemon, and is $HEIGHT m and $WEIGHT kg"
