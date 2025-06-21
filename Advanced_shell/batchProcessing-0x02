@@ -11,4 +11,5 @@ do
     echo "Fetching data for $poke..."
     curl -s -o  "$OUTPUT_FILE" -X GET "https://pokeapi.co/api/v2/pokemon/$poke"
     echo "saved data $to OUTPUT_FILE"
+    sleep 3
 done
