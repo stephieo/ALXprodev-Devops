@@ -18,4 +18,4 @@ formatted_height=$(awk -v w=$weight 'BEGIN{printf "%.f", w / 10}') # changing fr
 
 formatted_weight=$(awk -v h=$weight 'BEGIN{printf "%.f",  h / 10}') # changing to kg
 
-echo "$name is of type $type, weighs ${formatted_weight}kg  and is ${formatted_height}m tall " | sed -E "s/\b($name)\b/\u\1/"
+echo "$name is of type $type, weighs ${formatted_weight}kg, and is ${formatted_height}m tall. " | sed -E "s/\b($name)\b/\u\1/"
