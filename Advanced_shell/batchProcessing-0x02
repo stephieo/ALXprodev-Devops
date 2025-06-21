@@ -1,0 +1,14 @@
+#!/bin/bash
+#  create a list of pokemons
+#  for each one , append name to api url
+#  save response to "name.jason"
+
+POKEMONS=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
+OUTPUT_FILE="${poke}.json"
+
+for poke in "${POKEMONS[@]}";
+do
+    echo "Fetching data for $poke..."
+    curl -s -o  "$OUTPUT_FILE" -X GET "https://pokeapi.co/api/v2/pokemon/$poke"
+    echo "saved data $to OUTPUT_FILE"
+done
